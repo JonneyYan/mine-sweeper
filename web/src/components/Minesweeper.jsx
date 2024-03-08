@@ -18,6 +18,7 @@ function Minesweeper() {
   const [difficulty, setDifficulty] = useState([]);
   const [level, setLevel] = useState(null);
   const [game, setGame] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   useEffect(() => {
     async function fetchConf() {
@@ -53,29 +54,35 @@ function Minesweeper() {
   const handleClick = useCallback(
     (i, j) => {
       return async () => {
-        if (!game) {
-          if (level == null || !username) {
-            return;
+        try {
+          if (!!loading) return;
+          setLoading([i, j]);
+          if (!game) {
+            if (level == null || !username) {
+              return;
+            }
+            const data = await request("/start", "POST", {
+              body: JSON.stringify({
+                username,
+                difficulty: level,
+                initialPosition: [i, j],
+              }),
+            });
+            setGame(data);
+          } else {
+            if (!isLiving) {
+              return;
+            }
+            const data = await request("/game/clear", "POST", {
+              body: JSON.stringify({
+                x: i,
+                y: j,
+              }),
+            });
+            setGame(data);
           }
-          const data = await request("/start", "POST", {
-            body: JSON.stringify({
-              username,
-              difficulty: level,
-              initialPosition: [i, j],
-            }),
-          });
-          setGame(data);
-        } else {
-          if (!isLiving) {
-            return;
-          }
-          const data = await request("/game/clear", "POST", {
-            body: JSON.stringify({
-              x: i,
-              y: j,
-            }),
-          });
-          setGame(data);
+        } finally {
+          setLoading(null);
         }
       };
     },
@@ -135,8 +142,18 @@ function Minesweeper() {
               const cell = game?.grid[i][j];
               let v = cell ? (cell.flagging ? "🚩" : cell?.value) : " ";
 
+              if (loading && i === loading[0] && j === loading[1]) {
+                v = "🪄";
+              }
               return (
-                <span data-testid="mine-field" key={j} onClick={handleClick(i, j)} onContextMenu={handleRightClick(i, j)} onDoubleClick={handleDoubleClick(i, j)} className={`mine-filed-item mine-filed-item-${v}`}>
+                <span
+                  data-testid="mine-field"
+                  key={j}
+                  onClick={handleClick(i, j)}
+                  onContextMenu={handleRightClick(i, j)}
+                  onDoubleClick={handleDoubleClick(i, j)}
+                  className={`mine-filed-item mine-filed-item-${v}`}
+                >
                   {v !== "0" && v !== "❔" ? v : "  "}
                 </span>
               );
