@@ -86,43 +86,55 @@ function Minesweeper() {
         }
       };
     },
-    [isLiving, level, username, game]
+    [loading, isLiving, level, username, game]
   );
   const handleRightClick = useCallback(
     (i, j) => {
       return async (e) => {
-        e.preventDefault();
-        if (!isLiving) {
-          return;
+        try {
+          if (!!loading) return;
+          setLoading([i, j]);
+          e.preventDefault();
+          if (!isLiving) {
+            return;
+          }
+          const data = await request("/game/flagging", "POST", {
+            body: JSON.stringify({
+              x: i,
+              y: j,
+            }),
+          });
+          setGame(data);
+        } finally {
+          setLoading(null);
         }
-        const data = await request("/game/flagging", "POST", {
-          body: JSON.stringify({
-            x: i,
-            y: j,
-          }),
-        });
-        setGame(data);
       };
     },
-    [isLiving]
+    [isLiving, loading]
   );
   const handleDoubleClick = useCallback(
     (i, j) => {
       return async (e) => {
-        e.preventDefault();
-        if (!isLiving) {
-          return;
+        try {
+          if (!!loading) return;
+          setLoading([i, j]);
+          e.preventDefault();
+          if (!isLiving) {
+            return;
+          }
+          const data = await request("/game/clearAdjacent", "POST", {
+            body: JSON.stringify({
+              x: i,
+              y: j,
+            }),
+          });
+          setGame(data);
+        } finally {
+          setLoading(null);
         }
-        const data = await request("/game/clearAdjacent", "POST", {
-          body: JSON.stringify({
-            x: i,
-            y: j,
-          }),
-        });
-        setGame(data);
       };
     },
-    [isLiving]
+    [isLiving, loading]
   );
 
   return (
@@ -142,8 +154,8 @@ function Minesweeper() {
               const cell = game?.grid[i][j];
               let v = cell ? (cell.flagging ? "🚩" : cell?.value) : " ";
 
-              if (loading && i === loading[0] && j === loading[1]) {
-                v = "🪄";
+              if (loading !== null && i === loading[0] && j === loading[1]) {
+                v = "🧭";
               }
               return (
                 <span
