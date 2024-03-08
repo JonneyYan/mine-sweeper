@@ -11,7 +11,7 @@ import (
 	"infinitemining.com/storage"
 )
 
-const API_PORT = 3000
+const API_PORT = 3030
 
 func Run() {
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
