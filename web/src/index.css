@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  font-family: Proto Mono;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #080404;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+@font-face {
+  font-family: "Proto Mono";
+  src: url(./assets/ProtoMono-Light.otf);
+}

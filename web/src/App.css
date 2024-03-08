@@ -1,0 +1,217 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  background-color: #080404;
+  padding: 20px;
+  min-height: 100vh;
+
+  font-family: Proto Mono;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+/* initial */
+* {
+  color: white;
+}
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  font-family: Proto Mono;
+}
+
+button:hover {
+  color: green;
+  cursor: pointer;
+}
+button:active {
+  color: rgba(0, 128, 0, 0.724);
+  cursor: pointer;
+}
+
+/* pages */
+.load-history {
+}
+
+/* components */
+.minesweeper {
+  border: 5px solid green;
+  color: green;
+  margin: 20px auto;
+}
+
+.mine-username {
+  border-bottom: 5px solid green;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.mine-username input {
+  color: white;
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+  padding: 10px 5px;
+}
+
+.mine-username button {
+  display: none;
+  width: 200px;
+  border: none;
+  outline: none;
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+}
+
+.mine-board {
+  border-bottom: 5px solid green;
+  display: flex;
+  justify-content: space-between;
+}
+.mine-field {
+  background-color: #00800026;
+
+  color: white;
+  margin: -1px -1px;
+  height: auto;
+  border: none;
+  min-width: 500px;
+  max-width: 1200px;
+}
+
+.mine-field-rows {
+  line-height: 0;
+  display: grid;
+}
+.mine-field span {
+  min-width: 30px;
+  aspect-ratio: 1/1;
+  border: 1px solid green;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.mine-field span:hover {
+  background-color: #00800082;
+}
+
+.mine-filed-item-1,
+.mine-filed-item-2,
+.mine-filed-item-3,
+.mine-filed-item-4,
+.mine-filed-item-5,
+.mine-filed-item-6,
+.mine-filed-item-7,
+.mine-filed-item-8 {
+  background-color: #0080009c;
+}
+.mine-filed-item-0 {
+  background-color: #008000e0;
+}
+.mine-filed-item-1 {
+  color: red;
+}
+.mine-filed-item-2 {
+  color: blue;
+}
+.mine-filed-item-3 {
+  color: yellow;
+}
+.mine-filed-item-4 {
+  color: orchid;
+}
+.mine-filed-item-5 {
+  color: olive;
+}
+.mine-filed-item-6 {
+  color: chartreuse;
+}
+.mine-filed-item-7 {
+  color: blueviolet;
+}
+.mine-filed-item-8 {
+  color: rebeccapurple;
+}
+
+.level {
+  text-align: center;
+  margin: 10px;
+  flex-grow: 1;
+}
+.level.disabled {
+  text-align: center;
+  margin: 10px;
+  opacity: 0.5;
+  flex-grow: 1;
+  cursor: not-allowed;
+}
+.level h1 {
+  font-size: 16px;
+  margin: 0;
+}
+.level-select span {
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+.level-select .active,
+.level-select span:hover {
+  color: #f6ae2d;
+}
+
+.score-board,
+.counter {
+  width: 80px;
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter-start {
+  animation: tick 1s infinite ease-in-out;
+}
+
+.history {
+  margin: auto;
+  max-width: 800px;
+  min-width: 500px;
+  width: 100%;
+}
+
+.history thead {
+  opacity: 0.7;
+  text-align: left;
+}
+
+/* misc  */
+@keyframes tick {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
