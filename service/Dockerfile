@@ -10,19 +10,12 @@ RUN go mod download
 
 COPY . .
 
-# Build the Go app
 RUN  go build -o main .
 
-#final stage
 FROM alpine:latest
-
 WORKDIR /root/
-
-# Copy the Pre-built binary file from the previous stage
 COPY --from=builder //usr/src/app/main .
 
-# Expose port 8888 to the outside world
-EXPOSE 3030
+EXPOSE 3001
 
-#Command to run the executable
 CMD ["./main"]

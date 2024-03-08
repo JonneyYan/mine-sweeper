@@ -11,7 +11,7 @@ import (
 	"infinitemining.com/storage"
 )
 
-const API_PORT = 3030
+const API_PORT = 3001
 
 func Run() {
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
@@ -38,7 +38,7 @@ func Run() {
 	game.POST("/flagging", s.ChangeFlag)
 	game.GET("/scanMinefield", s.ScanMinefield)
 
-	addr := fmt.Sprintf("localhost:%d", API_PORT)
+	addr := fmt.Sprintf(":%d", API_PORT)
 
 	log.Info().Int("port", API_PORT).Msg("Listening to port")
 	log.Fatal().Err(http.ListenAndServe(addr, s.Router)).Msg("API server failed to start")
