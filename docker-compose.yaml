@@ -45,4 +45,3 @@ services:
 
 networks:
   mine:
-    driver: bridger  
