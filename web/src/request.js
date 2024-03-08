@@ -1,5 +1,5 @@
 async function request(url, method = "GET", options = {}) {
-  const baseURL = "http://localhost:3001";
+  const baseURL = "";
   const resp = await fetch(`${baseURL}/api/v1${url}`, {
     method,
     headers: {
